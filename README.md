@@ -43,4 +43,4 @@ public AuthInfo Authorize (String appid,String code){
 [3] ACCESSTOKEN有效期过期，根据REFRESHTOKEN刷新Token ：OpenApiClient. RefreshToken()
 
 ### 结束
-* 至此，你已经能使用拍拍贷开放平台的SDK了。如果想更详细了解每个API函数的用法，请查阅 API接口参考手册， 或自行并可下载[JAVA版SDK](https://gitlab.com/ppdai-open/open-sdk/tree/master/Java)/ [.NET版SDK](https://gitlab.com/ppdai-open/open-sdk/tree/master/C%23) 自行调试。
+* 至此，你已经能使用拍拍贷开放平台的SDK了。如果想更详细了解每个API函数的用法，请查阅 API接口参考手册， 或自行并可下载[JAVA版SDK](https://github.com/ppdai-open/open-sdk/tree/master/Java)/ [.NET版SDK](https://github.com/ppdai-open/open-sdk/tree/master/C%23) 自行调试。
