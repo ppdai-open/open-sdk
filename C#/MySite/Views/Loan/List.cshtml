@@ -1,0 +1,84 @@
+﻿@using System.Collections.Generic;
+@using MySite.Models;
+
+@model List<Loan>
+
+    @{
+        ViewBag.Title = "发标列表";
+    }
+
+    <h2>发标列表</h2>
+
+    <div>
+        <div>投资选项：</div>
+         <ul>
+             <li><input type="checkbox" id="CertificateValidate" />学历认证</li>
+             <li><input type="checkbox" id="MobileRealnameValidate" />手机认证</li>
+             <li><input type="checkbox" id="rate22" />利率大于22</li>
+             <li><input type="checkbox" id="CreditCodeAAA" />评级为AAA</li>
+             <li><input type="checkbox" id="CreditCodeD" />评级大于D</li>
+             <li>￥<input type="text" id="amount" /><button onclick="javascript:bid2()" >投资</button></li>
+
+         </ul>
+
+    </div>
+<div><a href="/loan?query=rate">筛选高利率</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/loan?query=AAA">筛选高评级</a></div>
+    <table>
+        <tr>
+            <th>评级</th>
+            <th>金额</th>
+            <th>期限</th>
+            <th>利率</th>
+            <th>性别</th>
+            <th>学历</th>
+            <th>年龄</th>
+            @*<th></th>*@
+        </tr>
+        @foreach (Loan entity in Model)
+        {
+            <tr>
+                <td>@entity.CreditCode</td>
+                <td>@entity.Amount</td>
+                <td>@entity.Months</td>
+                <td>@entity.Rate%</td>
+                <td>@entity.Sex</td>
+                <td>@entity.Degree</td>
+                <td>@entity.Age</td>
+                @*<td><button onclick="javascript:bid(@entity.ListingId,prompt('请输入投资金额',''))">投标</button></td>*@
+            </tr>
+        }
+    </table>
+
+    <script>
+
+        function bid(id,amount) {
+            $.get("/bid/dobid?id=" + id + "&amount=" + amount, function (data) {
+                alert(data);
+            })
+        }
+
+        function bid2() {
+
+            var selectTag = new Array();
+            $("input:checkbox:checked").each(function (i) {
+                selectTag.push($(this).attr("id"));
+            });
+
+            if (selectTag.length == 0) {
+                alert("没有选择任何标签！")
+                return;
+            }
+
+            var inputAmount = $("#amount").val();
+            if (inputAmount == "") {
+                alert("没有输入投资总额");
+                return;
+            }
+
+            $.post("/bid/dobid2", { Tags: selectTag, Amount: inputAmount }, function (data) {
+                alert(data)
+            });
+
+        }
+
+    </script>

@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/__init__.py=utf-8
+encoding//src/core/Global.py=utf-8
+encoding//src/core/http.py=utf-8
+encoding//src/core/rsa_client.py=utf-8
+encoding//src/openapi_client.py=utf-8
+separateDerivedEncodings=true

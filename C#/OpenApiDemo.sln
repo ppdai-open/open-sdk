@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenApi.Utility", "OpenApi.Utility\OpenApi.Utility.csproj", "{4E922BDF-E3A6-4461-8EAB-D67B657A632A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySite", "MySite\MySite.csproj", "{419F941D-8B82-47BA-AC51-3EE56BE44F1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenApi.UtilityTests", "OpenApi.UtilityTests\OpenApi.UtilityTests.csproj", "{60A4930A-26BF-4C4D-8E0F-48FDC7D6AA98}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E922BDF-E3A6-4461-8EAB-D67B657A632A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E922BDF-E3A6-4461-8EAB-D67B657A632A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E922BDF-E3A6-4461-8EAB-D67B657A632A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E922BDF-E3A6-4461-8EAB-D67B657A632A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419F941D-8B82-47BA-AC51-3EE56BE44F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419F941D-8B82-47BA-AC51-3EE56BE44F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419F941D-8B82-47BA-AC51-3EE56BE44F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419F941D-8B82-47BA-AC51-3EE56BE44F1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A4930A-26BF-4C4D-8E0F-48FDC7D6AA98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A4930A-26BF-4C4D-8E0F-48FDC7D6AA98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A4930A-26BF-4C4D-8E0F-48FDC7D6AA98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A4930A-26BF-4C4D-8E0F-48FDC7D6AA98}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
