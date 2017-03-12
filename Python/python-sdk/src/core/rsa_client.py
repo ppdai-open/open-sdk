@@ -28,7 +28,8 @@ class rsa_client:
         '''
         signdata = signdata.lower()
         PrivateKey = rsa.PrivateKey.load_pkcs1(Global.privatekey)
-        signature = base64.b64encode(rsa.sign(signdata, PrivateKey, 'SHA-1'))
+        signature = base64.b64encode(rsa.sign(signdata.encode('utf-8'), PrivateKey, 'SHA-1'))
+
         return signature
 #       
 
