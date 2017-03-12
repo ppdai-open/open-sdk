@@ -1,9 +1,16 @@
 #coding=utf-8
-import urllib2
 
 __author__ = "yangl"
 
-from urllib2 import Request  # Python 2
+try:
+    import urllib2
+    from urllib2 import Request  # Python 2
+except:
+    import urllib.request
+    from urllib.request import Request
+    # WARNING monkey patching
+    urllib2 = urllib.request
+
 
 #网络请求操作类
 class http_client:
