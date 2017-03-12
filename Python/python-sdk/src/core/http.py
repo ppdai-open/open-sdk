@@ -5,7 +5,7 @@ __author__ = "yangl"
 try:
     import urllib2
     from urllib2 import Request  # Python 2
-except:
+except ImportError:
     import urllib.request
     from urllib.request import Request
     # WARNING monkey patching

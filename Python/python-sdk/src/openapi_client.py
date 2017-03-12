@@ -7,7 +7,12 @@ Created on 2016年7月5日
 from core.http import http_client
 from core.rsa_client import rsa_client as rsa
 import datetime
-import gzip, StringIO
+import gzip
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 '''
 OpenAapi提交请求客户端

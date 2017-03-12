@@ -1,12 +1,19 @@
 # coding=utf-8
-from __builtin__ import str
+try:
+    from __builtin__ import str
+except ImportError:
+    pass
 
 __author__ = "yangl"
 
 
 import base64 
 import rsa
-import Global
+
+try:
+    import Global
+except ImportError:
+    from core import Global
  
 # rsa操作类
 class rsa_client:
