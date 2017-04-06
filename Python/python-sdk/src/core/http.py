@@ -1,9 +1,18 @@
 #coding=utf-8
-import urllib2
 
 __author__ = "yangl"
 
-from urllib2 import Request  # Python 2
+import sys
+
+try:
+    import urllib2
+    from urllib2 import Request  # Python 2
+except ImportError:
+    import urllib.request
+    from urllib.request import Request
+    # WARNING monkey patching
+    urllib2 = urllib.request
+
 
 #网络请求操作类
 class http_client:
@@ -31,6 +40,9 @@ class http_client:
             for head in headers:
                 req.add_header(head, headers[head])
             opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
+
+            if sys.version_info.major == 3 and type(data) != bytes:
+                data = data.encode('utf-8')
             response = opener.open(req,data = data,timeout=5)
 #             data = StringIO.StringIO(response.read())
 #             gzipper = gzip.GzipFile(fileobj=data)
