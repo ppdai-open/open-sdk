@@ -2,6 +2,7 @@ package com.ppdai.open.core;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.*;
@@ -11,7 +12,9 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * Created by xuzhishen on 2016/3/16.
@@ -174,12 +177,45 @@ public class OpenApiClient {
                 node.put(propertyObject.getName(), (String) propertyObject.getValue());
             } else if (propertyObject.getValue() instanceof Date) {
                 node.put(propertyObject.getName(), dateformat.format((Date) propertyObject.getValue()));
+            }else if(propertyObject.getValue() instanceof Collection){
+                ArrayNode arrayNode = mapper.createArrayNode();
+                node.put(propertyObject.getName(),arrayNode);
+                Iterator  it = ((Collection) propertyObject.getValue()).iterator();
+                if (! it.hasNext())
+                    break;
+                for (;;) {
+                    Object e = it.next();
+                    addArrayNode(arrayNode,e);
+                    if (! it.hasNext())
+                        break;
+                }
+
             } else {
                 node.put(propertyObject.getName(), propertyObject.getValue().toString());
             }
         }
 
         return mapper.writeValueAsString(node);
+    }
+
+    private static void addArrayNode(ArrayNode arrayNode,Object value){
+        if(value instanceof Integer){
+            arrayNode.add((Integer)value);
+        }else if(value instanceof Float){
+            arrayNode.add((Float)value);
+        }else if(value instanceof Long){
+            arrayNode.add((Long)value);
+        }else if(value instanceof Double){
+            arrayNode.add((Double)value);
+        }else if(value instanceof BigDecimal){
+            arrayNode.add((BigDecimal)value);
+        }else if(value instanceof String){
+            arrayNode.add((String)value);
+        }else if(value instanceof Boolean){
+            arrayNode.add((Boolean)value);
+        }else {
+            throw new IllegalArgumentException("不支持的类型");
+        }
     }
 
     /**
@@ -245,5 +281,9 @@ public class OpenApiClient {
 
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(strResponse, AuthInfo.class);
+    }
+
+    public static RsaCryptoHelper getRsaCryptoHelper() {
+        return rsaCryptoHelper;
     }
 }
