@@ -25,7 +25,7 @@ function SendAuthRequest($url, $request) {
 function SendRequest($url, $request, $appID, $appPrivateKey, $accessToken) {
 	$curl = curl_init ( $url );
 	
-	$timestamp = gmdate ( "M d Y H:i:s", time () ); // UTC format
+	$timestamp = gmdate ( "Y-m-d h:m:s", time () ); // UTC format
 	openssl_sign ( $appID . $timestamp, $Sign_request, $appPrivateKey );
 	$Sign_request = base64_encode ( $Sign_request );
 	
