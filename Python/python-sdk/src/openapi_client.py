@@ -7,12 +7,8 @@ Created on 2016年7月5日
 from core.http import http_client
 from core.rsa_client import rsa_client as rsa
 import datetime
-import gzip
-
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+import gzip, StringIO
+import json
 
 '''
 OpenAapi提交请求客户端
@@ -77,12 +73,14 @@ class openapi_client:
         headers = {"X-PPD-APPID":appid,
                    "X-PPD-SIGN":sign,
                    "X-PPD-TIMESTAMP":timestamp,
-                   "X-PPD-TIMESTAMP-SIGN":rsa.sign("%s%s" % (appid,timestamp))}
+                   "X-PPD-TIMESTAMP-SIGN":rsa.sign("%s%s" % (appid,timestamp)),
+                   "Accept":"application/json;charset=UTF-8"}
         if accesstoken.strip():
             headers["X-PPD-ACCESSTOKEN"] = accesstoken
         data = data.lower()
         result = http_client.http_post(url,data,headers=headers)
-        print("send_data:%s" % (result))
+        # json.loads(result)
+        print("send_data:\n%s" % (result))
         return result
         
         

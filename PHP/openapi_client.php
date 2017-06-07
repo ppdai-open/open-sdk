@@ -1,32 +1,30 @@
 <?php
 include 'core/global.php';
 include 'core/http.php';
+
 /**
- * 获取授权 AppId 应用ID code 授权码
+ * 获取授权
  * 
- * @param unknown $appid        	
- * @param unknown $code        	
+ * @param $appid: 应用ID      	
+ * @param $code        	
  */
 function authorize($code) {
 	global $appid;
-	$request = '{"AppID":"' . $appid . '","code":"' . $code . '"}';
-	echo $request;
+	$request = '{"AppID": "'.$appid.'","Code": "'.$code.'"}';
 	$url = "https://ac.ppdai.com/oauth2/authorize";
 	return SendAuthRequest ( $url, $request );
 }
 
 /**
  * 刷新AccessToken
- * AppId 应用ID
- * OpenId 用户唯一标识
- * RefreshToken 刷新令牌Token
  * 
- * @param unknown $openid        	
- * @param unknown $refreshtoken        	
+ * @param $openid: 用户唯一标识
+ * @param $openid: 应用ID        	
+ * @param $refreshtoken: 刷新令牌Token       	
  */
 function refresh_token($openid, $refreshtoken) {
 	global $appid;
-	$request = '{"AppID":"' . $appid . '","OpenID":"' . $openId . '","RefreshToken":"' . $refreshToken . '"}';
+	$request = '{"AppID":"' . $appid . '","OpenID":"' . $openid. '","RefreshToken":"' . $refreshtoken. '"}';
 	$url = "https://ac.ppdai.com/oauth2/refreshtoken";
 	return SendAuthRequest ( $url, $request );
 }
@@ -43,8 +41,13 @@ function refresh_token($openid, $refreshtoken) {
  * @param unknown $data        	
  * @param string $accesstoken        	
  */
-function send($url, $data, $accesstoken = '') {
+function send($url, $request, $accesstoken = '') {
 	global $appid;
 	global $appPrivateKey;
-	return SendRequest ( $url, $data, $appid, $appPrivateKey, $accesstoken );
+	return SendRequest ( $url, $request, $appid, $accesstoken );
 }
+
+
+
+
+
