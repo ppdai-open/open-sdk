@@ -122,7 +122,7 @@ public class OpenApiClient {
             /**************************************************************/
 
             DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
-            dataOutputStream.writeBytes(propertyToJson(propertyObjects));
+			dataOutputStream.write(propertyToJson(propertyObjects).getBytes());
             dataOutputStream.flush();
             InputStream inputStream = urlConnection.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
