@@ -18,7 +18,7 @@ import java.util.UUID;
 public class BizTest {
 
     /************ 应用ＩＤ **************/
-    private String  appid = "";
+    private String appid = "";
 
     /***************** 客户端私钥 **************/
     String privKey = "";
@@ -31,13 +31,13 @@ public class BizTest {
     private AuthInfo authInfo = null;
 
     /*********** 获取可投标列表 ***************/
-    private  String Get_LoanList_URL = "http://gw.open.ppdai.com/invest/BidproductlistService/LoanList";
+    private String Get_LoanList_URL = "http://gw.open.ppdai.com/invest/BidproductlistService/LoanList";
 
 
     /*********** 投标接口 ***************/
     private String Bid_URL = "http://gw.open.ppdai.com/invest/BidService/Bidding";
 
-//    @Test
+    //    @Test
     public void AuthTest() throws Exception {
 
         /**
@@ -61,24 +61,34 @@ public class BizTest {
 
     /**
      * 根据授权码获取授权信息
+     *
      * @param code
      * @throws IOException
      */
-     void gettoken(String code) throws Exception {
-         OpenApiClient.Init(appid, RsaCryptoHelper.PKCSType.PKCS8,pubKey,privKey);
-        authInfo =  OpenApiClient.authorize(code);
+    void gettoken(String code) throws Exception {
+        OpenApiClient.Init(appid, RsaCryptoHelper.PKCSType.PKCS8, pubKey, privKey);
+        authInfo = OpenApiClient.authorize(code);
+        System.out.println("OpenID:" + authInfo.getOpenID());
+        System.out.println("AccessToken:" + authInfo.getAccessToken());
+        System.out.println("RefreshToken:" + authInfo.getRefreshToken());
+        System.out.println("ExpiresIn:" + authInfo.getExpiresIn());
     }
 
     /**
      * 刷新令牌
+     *
      * @throws IOException
      */
-     void refreshToken() throws Exception {
-         OpenApiClient.Init(appid, RsaCryptoHelper.PKCSType.PKCS8,pubKey,privKey);
-         authInfo = OpenApiClient.refreshToken(authInfo.getOpenID(),authInfo.getRefreshToken());
+    void refreshToken() throws Exception {
+        OpenApiClient.Init(appid, RsaCryptoHelper.PKCSType.PKCS8, pubKey, privKey);
+        authInfo = OpenApiClient.refreshToken(authInfo.getOpenID(), authInfo.getRefreshToken());
+        System.out.println("OpenID:" + authInfo.getOpenID());
+        System.out.println("AccessToken:" + authInfo.getAccessToken());
+        System.out.println("RefreshToken:" + authInfo.getRefreshToken());
+        System.out.println("ExpiresIn:" + authInfo.getExpiresIn());
     }
 
-//@Test
+    //@Test
     public void getSignString() throws ParseException {
 
         final SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -108,13 +118,22 @@ public class BizTest {
     }
 
     @Test
-    public void InterfaceTest()throws Exception{
+    public void InterfaceTest() throws Exception {
         String gwurl = "http://gw.open.ppdai.com";
         String token = "c6f91679-3477-4671-814e-2f53d0cc4641";
 
-        OpenApiClient.Init(appid, RsaCryptoHelper.PKCSType.PKCS8,pubKey,privKey);
-
         Result result;
+
+        OpenApiClient.Init(appid, RsaCryptoHelper.PKCSType.PKCS8, pubKey, privKey);
+        result = OpenApiClient.send("http://gw.open.ppdai.com/invest/BidService/BidList",token,
+                new PropertyObject("ListingId", 0, ValueTypeEnum.Int32),
+                new PropertyObject("StartTime","2017-06-15", ValueTypeEnum.String),
+                new PropertyObject("EndTime","2017-06-16", ValueTypeEnum.String),
+                new PropertyObject("PageIndex",1, ValueTypeEnum.Int32),
+                new PropertyObject("PageSize",20, ValueTypeEnum.Int32));
+        System.out.println(String.format("返回结果:%s", result.isSucess() ? result.getContext() : result.getErrorMessage()));
+
+
         System.out.println("测试 AuthService.SendSMSAuthCode");
         result = OpenApiClient.send(gwurl + "/auth/authservice/sendsmsauthcode"
                 , new PropertyObject("Mobile", "15200000001", ValueTypeEnum.String)
@@ -195,26 +214,26 @@ public class BizTest {
         System.out.println();
         System.out.println("-----------------------------------------------");
         System.out.println();
-
     }
 
 
-    public void pkcs1Test()throws Exception{
+    public void pkcs1Test() throws Exception {
         String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8iMpEG3mnFlMfufO95DfAfor80RL3I/IzF828aoDDw/Xy86jPiihJyGyG2ZmbqsAw+8nj8eGc+U9LmKASgQhS9e0R/MmYDa9R/O2f4tQZUQr3nE3uUTES0tqCLoE3TVSd59lnVExeDL5IW+F/Yc9mz1v+xSDFcSKyfHEo0FDnnwIDAQAB";
         String privKey = "MIICWwIBAAKBgQC8iMpEG3mnFlMfufO95DfAfor80RL3I/IzF828aoDDw/Xy86jPiihJyGyG2ZmbqsAw+8nj8eGc+U9LmKASgQhS9e0R/MmYDa9R/O2f4tQZUQr3nE3uUTES0tqCLoE3TVSd59lnVExeDL5IW+F/Yc9mz1v+xSDFcSKyfHEo0FDnnwIDAQABAoGAJ5wxqrd/CpzFIBBIZmfxUq8DcnRWoLfbpeJlZiWWIgskvEN2/wuOxVmne3lyLWNld6Ue2JY0CW/TuhU55ElZvv91NiTreBqr5WfZ8EYI+/lwEUKC4GzogVwrmpL1PpSaNJymvTujiShmP/+hia2mav9fhMOYm8MaMRwPELwASiECQQD0nW8xWF9IRT90v89y+P/htW+g3E4HZVAYPXyhfAnFJsGC06XAXwO0hDS8Sao7Nktj2sNSacNFjZvndGrQPOePAkEAxU8o7+QHqm/HYsO0XN49xn6zWQRvAOonhl5/+NKm7NfGEVTGwhP5KbNsJPv3TTtCPrS2V6MlIScg1yLXkFF28QJAGoEYdDNMF6uRJZhG5QE/0Hf1QWu9dKWwmP/IikLDWD5Lx14hXoetAhk1EZW1wTav0oD4muxkwRuH4ftGO4vt1wJAKkjdsBOBZRBRfaQNWj2ypYBvtSsTEvIbiFtmN5AFgAp6AyrU8bDQHBS8n2x0QlPpzYBy93MaOPGmwxRPeDlNMQJAKubPrAE9Qe++95xvvfpZgj6wOZoKGa4Yj3dd1PYcO2fU9eVSW1W6IrvJc36NIGz4Egyw2EiqFBBIJL92ZhjQ2Q==";
         String txt = "abc";
 
-        RsaCryptoHelper rsaCryptoHelper = new RsaCryptoHelper(RsaCryptoHelper.PKCSType.PKCS1,pubKey,privKey);
+        RsaCryptoHelper rsaCryptoHelper = new RsaCryptoHelper(RsaCryptoHelper.PKCSType.PKCS1, pubKey, privKey);
 
 
         String txt2 = rsaCryptoHelper.encryptByPublicKey(txt);
         String txt3 = rsaCryptoHelper.decryptByPrivateKey(txt2);
 
         String sign = rsaCryptoHelper.sign(txt);
-        boolean isSign = rsaCryptoHelper.verify(txt,sign);
+        boolean isSign = rsaCryptoHelper.verify(txt, sign);
     }
-@Test
-    public void pkcs8Test()throws Exception{
+
+    @Test
+    public void pkcs8Test() throws Exception {
 
         String pubKey = "-----BEGIN PUBLIC KEY-----\n" +
                 "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDk/B01fncBoYj83jQnR3kAAftP\n" +
@@ -240,13 +259,13 @@ public class BizTest {
                 "-----END PRIVATE KEY-----";
         String txt = "abc";
 
-        RsaCryptoHelper rsaCryptoHelper = new RsaCryptoHelper(RsaCryptoHelper.PKCSType.PKCS8,pubKey,privKey);
+        RsaCryptoHelper rsaCryptoHelper = new RsaCryptoHelper(RsaCryptoHelper.PKCSType.PKCS8, pubKey, privKey);
 
 
         String txt2 = rsaCryptoHelper.encryptByPublicKey(txt);
         String txt3 = rsaCryptoHelper.decryptByPrivateKey(txt2);
 
         String sign = rsaCryptoHelper.sign(txt);
-        boolean isSign = rsaCryptoHelper.verify(txt,sign);
+        boolean isSign = rsaCryptoHelper.verify(txt, sign);
     }
 }
