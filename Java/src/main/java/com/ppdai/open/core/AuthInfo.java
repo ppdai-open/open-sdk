@@ -9,7 +9,7 @@ public class AuthInfo {
 
     //错误信息
     @JsonProperty("ErrMsg")
-    private int errMsg ;
+    private String errMsg ;
 
     //用户在第三方唯一标识
     @JsonProperty("OpenID")
@@ -27,11 +27,11 @@ public class AuthInfo {
     @JsonProperty("ExpiresIn")
     private int expiresIn ;
 
-    public int getErrMsg() {
+    public String getErrMsg() {
         return errMsg;
     }
 
-    public void setErrMsg(int errMsg) {
+    public void setErrMsg(String errMsg) {
         this.errMsg = errMsg;
     }
 

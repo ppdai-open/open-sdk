@@ -32,3 +32,4 @@ hs_err_pid*
 build
 .project
 *.log
+/Java/src/test/java/com/ppdai/open/core/BizTest2.java
