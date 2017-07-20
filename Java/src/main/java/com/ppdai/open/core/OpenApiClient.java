@@ -11,10 +11,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created by xuzhishen on 2016/3/16.
@@ -30,8 +29,6 @@ public class OpenApiClient {
      * 刷新Token信息URL
      */
     private final static String REFRESHTOKEN_URL = "https://ac.ppdai.com/oauth2/refreshtoken ";
-
-    private final static SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private static String appid;
     private static RsaCryptoHelper rsaCryptoHelper;
@@ -105,12 +102,7 @@ public class OpenApiClient {
             /******************* 公共请求参数 ************************/
             urlConnection.setRequestProperty("X-PPD-APPID", appid);
 
-            //获取UTC时间作为时间戳
-            java.util.Calendar cal = java.util.Calendar.getInstance();
-            int zoneOffset = cal.get(java.util.Calendar.ZONE_OFFSET);
-            int dstOffset = cal.get(java.util.Calendar.DST_OFFSET);
-            cal.add(java.util.Calendar.MILLISECOND, -(zoneOffset + dstOffset));
-            Long timestamp = (cal.getTime().getTime() - dateformat.parse("1970-01-01 00:00:00").getTime()) / 1000;
+            Long timestamp = System.currentTimeMillis()/1000;
             urlConnection.setRequestProperty("X-PPD-TIMESTAMP", timestamp.toString());
             //对时间戳进行签名
             urlConnection.setRequestProperty("X-PPD-TIMESTAMP-SIGN", rsaCryptoHelper.sign(appid + timestamp).replaceAll("\\r", "").replaceAll("\\n", ""));
@@ -122,9 +114,19 @@ public class OpenApiClient {
             /**************************************************************/
 
             DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
-			dataOutputStream.write(propertyToJson(propertyObjects).getBytes());
+			dataOutputStream.write(propertyToJson(propertyObjects).getBytes("utf-8"));
             dataOutputStream.flush();
-            InputStream inputStream = urlConnection.getInputStream();
+            int responseCode = urlConnection.getResponseCode();
+            InputStream inputStream = null;
+            if(responseCode >= 400) {
+                if(responseCode != 404 && responseCode != 410) {
+                    inputStream = urlConnection.getErrorStream();
+                }else {
+                    throw new FileNotFoundException(url);
+                }
+            }else {
+                inputStream = urlConnection.getInputStream();
+            }
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String strResponse = bufferedReader.readLine();
@@ -132,23 +134,9 @@ public class OpenApiClient {
             result.setSucess(true);
             result.setContext(strResponse);
 
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            result.setErrorMessage(e.getMessage());
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-            result.setErrorMessage(e.getMessage());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            result.setErrorMessage(e.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-            result.setErrorMessage(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             result.setErrorMessage(e.getMessage());
-        } finally {
-
         }
         return result;
     }
@@ -176,6 +164,7 @@ public class OpenApiClient {
             } else if (propertyObject.getValue() instanceof String) {
                 node.put(propertyObject.getName(), (String) propertyObject.getValue());
             } else if (propertyObject.getValue() instanceof Date) {
+                DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 node.put(propertyObject.getName(), dateformat.format((Date) propertyObject.getValue()));
             }else if(propertyObject.getValue() instanceof Collection){
                 ArrayNode arrayNode = mapper.createArrayNode();
