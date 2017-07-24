@@ -14,8 +14,6 @@ import java.util.UUID;
  */
 public class PropertyFormater {
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
     /**
      * 对象格式化
      * @param name  属性名称
@@ -71,6 +69,7 @@ public class PropertyFormater {
      * @throws ParseException
      */
     public static long dateTimeFormat(Object obj) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date real = null;
         if (obj instanceof Date)
             real = (Date) obj;
