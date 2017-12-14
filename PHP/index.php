@@ -8,12 +8,12 @@ include 'openapi_client.php';
 $accessToken = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
 /*保存用户授权信息后可获取做权限内的接口调用*/
-// $url = "http://gw.open.ppdai.com/open/openApiPublicQueryService/QueryUserNameByOpenID";
-// $url = "http://gw.open.ppdai.com/auth/authservice/sendsmsauthcode";
-// $url = "http://gw.open.ppdai.com/auth/LoginService/AutoLogin";
-// $url = "http://gw.open.ppdai.com/invest/LLoanInfoService/LoanList";
-// $url = "http://gw.open.ppdai.com/invest/LLoanInfoService/BatchListingInfos";
-$url = "http://gw.open.ppdai.com/balance/balanceService/QueryBalance";
+// $url = "https://openapi.ppdai.com/open/openApiPublicQueryService/QueryUserNameByOpenID";
+// $url = "https://openapi.ppdai.com/auth/authservice/sendsmsauthcode";
+// $url = "https://openapi.ppdai.com/auth/LoginService/AutoLogin";
+// $url = "https://openapi.ppdai.com/invest/LLoanInfoService/LoanList";
+// $url = "https://openapi.ppdai.com/invest/LLoanInfoService/BatchListingInfos";
+$url = "https://openapi.ppdai.com/balance/balanceService/QueryBalance";
 
 // $request = '{"OpenID": "be47e5e4b9444047b0f8fe9311a8ea29"}';
 // $request = '{"Mobile": "15026671512","DeviceFP": "123456"}';

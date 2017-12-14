@@ -14,7 +14,7 @@ namespace MySite.Controllers
         /// <summary>
         /// 接口请求地址
         /// </summary>
-        public const string Get_LoanList_URL = "http://gw.open.ppdai.com/invest/BidproductlistService/LoanList";
+        public const string Get_LoanList_URL = "https://openapi.ppdai.com/invest/BidproductlistService/LoanList";
 
         /// <summary>
         /// 可投标列表获取

@@ -1,5 +1,5 @@
 <?php
-//请替换自己的appid和appPrivateKey, 申请地址：http://open.ppdai.com/
+//请替换自己的appid和appPrivateKey, 申请地址：https://open.ppdai.com/
 $appid="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
 /**
