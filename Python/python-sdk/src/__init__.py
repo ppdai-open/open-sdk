@@ -25,10 +25,10 @@ access_token = "XXXXXXXXXXXXXXXXXXXXXXX"
 #new_token_info = client.refresh_token(appid, openid, refreshtoken)
 
 #step 2 发送数据（可投标列表接口）
-# access_url = "http://gw.open.ppdai.com/auth/LoginService/AutoLogin"
-# access_url = "http://gw.open.ppdai.com/auth/registerservice/accountexist"
-# access_url = "http://gw.open.ppdai.com/invest/LLoanInfoService/BatchListingInfos"
-access_url = "http://gw.open.ppdai.com/balance/balanceService/QueryBalance"
+# access_url = "https://openapi.ppdai.com/auth/LoginService/AutoLogin"
+# access_url = "https://openapi.ppdai.com/auth/registerservice/accountexist"
+# access_url = "https://openapi.ppdai.com/invest/LLoanInfoService/BatchListingInfos"
+access_url = "https://openapi.ppdai.com/balance/balanceService/QueryBalance"
 # utctime = datetime.datetime.utcnow()
 # data = {"Timestamp":utctime.strftime('%Y-%m-%d %H:%M:%S')}#time.strftime('%Y-%m-%d %H:%M:%S',)
 # data = { "AccountName": "15200000001"}

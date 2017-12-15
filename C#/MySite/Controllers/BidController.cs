@@ -16,7 +16,7 @@ namespace MySite.Controllers
         /// <summary>
         /// 接口请求地址
         /// </summary>
-        private const string Bid_URL = "http://gw.open.ppdai.com/invest/BidService/Bidding";
+        private const string Bid_URL = "https://openapi.ppdai.com/invest/BidService/Bidding";
 
         // GET: Bid
         public ActionResult Index()

@@ -23,10 +23,10 @@ code = "5ae2ee0d135b47ac806fb822fe5477bd"
 #new_token_info = client.refresh_token(appid, openid, refreshtoken)
 
 #step 2 发送数据（可投标列表接口）
-access_url = "http://gw.open.ppdai.com/invest/LLoanInfoService/BatchListingInfos"
-#"http://gw.open.ppdai.com/auth/registerservice/accountexist" 
-#"http://gw.open.ppdai.com/invest/LLoanInfoService/BatchListingInfos"
-#"http://gw.open.ppdai.com/invest/BidproductlistService/LoanList"
+access_url = "https://openapi.ppdai.com/invest/LLoanInfoService/BatchListingInfos"
+#"https://openapi.ppdai.com/auth/registerservice/accountexist"
+#"https://openapi.ppdai.com/invest/LLoanInfoService/BatchListingInfos"
+#"https://openapi.ppdai.com/invest/BidproductlistService/LoanList"
 access_token = "bdfbfc75-ca6e-4ccd-8304-b37e79ff795f"
 #access_token=""
 utctime = datetime.datetime.utcnow()
