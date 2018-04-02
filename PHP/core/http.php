@@ -52,6 +52,7 @@ function SendRequest ( $url, $request, $appId, $accessToken ){
         curl_setopt ( $curl, CURLOPT_POST, 1 );
         curl_setopt ( $curl, CURLOPT_POSTFIELDS, $request );
         curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
+	curl_setopt ( $curl, CURLOPT_SSL_VERIFYPEER, false);
         $result = curl_exec ( $curl );
         curl_close ( $curl );
 //         $j = json_decode ( $result, true );
