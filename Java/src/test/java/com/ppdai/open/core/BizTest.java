@@ -31,11 +31,11 @@ public class BizTest {
     private AuthInfo authInfo = null;
 
     /*********** 获取可投标列表 ***************/
-    private String Get_LoanList_URL = "http://gw.open.ppdai.com/invest/BidproductlistService/LoanList";
+    private String Get_LoanList_URL = "https://openapi.ppdai.com/invest/BidproductlistService/LoanList";
 
 
     /*********** 投标接口 ***************/
-    private String Bid_URL = "http://gw.open.ppdai.com/invest/BidService/Bidding";
+    private String Bid_URL = "https://openapi.ppdai.com/invest/BidService/Bidding";
 
     //    @Test
     public void AuthTest() throws Exception {
@@ -119,13 +119,13 @@ public class BizTest {
 
     @Test
     public void InterfaceTest() throws Exception {
-        String gwurl = "http://gw.open.ppdai.com";
+        String gwurl = "https://openapi.ppdai.com";
         String token = "c6f91679-3477-4671-814e-2f53d0cc4641";
 
         Result result;
 
         OpenApiClient.Init(appid, RsaCryptoHelper.PKCSType.PKCS8, pubKey, privKey);
-        result = OpenApiClient.send("http://gw.open.ppdai.com/invest/BidService/BidList",token,
+        result = OpenApiClient.send("https://openapi.ppdai.com/invest/BidService/BidList",token,
                 new PropertyObject("ListingId", 0, ValueTypeEnum.Int32),
                 new PropertyObject("StartTime","2017-06-15", ValueTypeEnum.String),
                 new PropertyObject("EndTime","2017-06-16", ValueTypeEnum.String),
