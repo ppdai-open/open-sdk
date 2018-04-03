@@ -13,15 +13,14 @@ function sortToSign($request){
         if(is_array($value)){
             continue;
         }else{
-            $arr[$key] = $value;
+            $arr[strtolower($key)] = $value;
         }
     }
     ksort($arr);
     $str = "";
     foreach ($arr as $key => $value){
         $str = $str.$key.$value;
-    }
-    $str = strtolower($str);
+    } 
     return $str;
 }
 
