@@ -129,11 +129,13 @@ public class OpenApiClient {
             }
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String strResponse = bufferedReader.readLine();
-
+            StringBuilder strResponse = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                strResponse.append(line);
+            }
             result.setSucess(true);
-            result.setContext(strResponse);
-
+            result.setContext(strResponse.toString());
         } catch (Exception e) {
             e.printStackTrace();
             result.setErrorMessage(e.getMessage());
