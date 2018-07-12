@@ -19,7 +19,6 @@ class rsa_client:
         '''''
         @param signdata: 需要签名的字符串
         '''
-        signdata = signdata.lower()
         PrivateKey = rsa.PrivateKey.load_pkcs1(Global.privatekey)
         signature = base64.b64encode(rsa.sign(signdata, PrivateKey, 'SHA-1'))
         return signature
@@ -32,11 +31,10 @@ class rsa_client:
         取出key值,按照字母排序后将keyvalue拼接起来
         返回字符串
         '''
-        dics = sorted(dicts.items(), key=lambda k : k[0])
+        dics = sorted(dicts.items(), key=lambda k : k[0].lower())
         params = ""
         for dic in dics:
-            if type(dic[1]) is str:
-                params += dic[0] + dic[1]
+                params += dic[0].lower() + str(dic[1])
         return params
 
 
