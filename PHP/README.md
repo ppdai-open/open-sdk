@@ -15,3 +15,4 @@ $request = '{
         }';
 $result = send($url, $request,$accessToken);
 ```
+如果使用过程中遇到调用https有问题可以参考这篇[文章](http://unitstep.net/blog/2009/05/05/using-curl-in-php-to-access-https-ssltls-protected-sites/)
